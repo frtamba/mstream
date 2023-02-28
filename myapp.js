@@ -6,6 +6,9 @@ http.createServer(function (req, res) {
   if (req.url == '/fileupload') {
     var form = new formidable.IncomingForm();
     form.parse(req, function (err, fields, files) {
+      var link = fields.mlink.values;
+      console.log(link);
+      console.log('The file is open');
       var oldpath = files.filetoupload.filepath;
       var filenam = files.filetoupload.originalFilename;
       var replaced = filenam.replace(/ /g, '_');
@@ -21,6 +24,7 @@ http.createServer(function (req, res) {
     res.write('<h2>rtmp://195.90.214.31/:1935/live/stream!</h2>');
     res.write('<form action="fileupload" method="post" enctype="multipart/form-data">');
     res.write('<input type="file" name="filetoupload"><br>');
+    res.write('<input type="text" name="mlink"><br>');
     res.write('<input type="submit">');
     res.write('</form>');
     return res.end();
